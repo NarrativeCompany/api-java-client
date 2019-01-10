@@ -96,7 +96,44 @@
           </execution>
         </executions>
       </plugin>
+      <!-- START customization needle -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- END customization needle -->
     </plugins>
+    <!-- START customization needle -->
+    <extensions>
+      <extension>
+        <groupId>com.gkatzioura.maven.cloud</groupId>
+        <artifactId>google-storage-wagon</artifactId>
+        <version>1.5</version>
+      </extension>
+    </extensions>
+    <!-- END customization needle -->
   </build>
   <dependencies>
     <dependency>
@@ -140,4 +177,14 @@
     <junit-version>4.12</junit-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+  <!-- START customization needle -->
+  <distributionManagement>
+    <repository>
+      <id>release</id>
+      <url>gs://${bucketName}/release</url>
+    </repository>
+  </distributionManagement>
+  <!-- END customization needle -->
+
 </project>
